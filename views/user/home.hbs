@@ -1,0 +1,215 @@
+
+
+<!-- home section starts  -->
+
+<section class="home">
+
+    <div class="swiper home-slider">
+
+        <div class="swiper-wrapper">
+
+        <div class="swiper-slide slide">
+            <div class="image">
+                <img src="images/home-img-1.jpg" alt="">
+            </div>
+            <div class="content">
+                <span>upto 50% off</span>
+                <h3>smartphones</h3>
+                <a href="#" class="btn">shop now</a>
+            </div>
+        </div>
+
+        <div class="swiper-slide slide">
+            <div class="image">
+                <img src="images/home-img-2.jpg" alt="">
+            </div>
+            <div class="content">
+                <span>upto 50% off</span>
+                <h3>smartwatch</h3>
+                <a href="#" class="btn">shop now</a>
+            </div>
+        </div>
+
+        <div class="swiper-slide slide">
+            <div class="image">
+                <img src="images/home-img-3.jpg" alt="">
+            </div>
+            <div class="content">
+                <span>upto 50% off</span>
+                <h3>headphones</h3>
+                <a href="#" class="btn">shop now</a>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+
+    </div>
+
+</section>
+
+<!-- home section ends -->
+
+<!-- banner section starts  -->
+
+<section class="banner">
+
+    <div class="box-container">
+
+        <a href="#" class="box">
+            <img src="images/banner-1.jpg" alt="">
+            <div class="content">
+                <span>special offer</span>
+                <h3>upto 50% off</h3>
+            </div>
+        </a>
+
+        <a href="#" class="box">
+            <img src="images/banner-2.jpg" alt="">
+            <div class="content">
+                <span>special offer</span>
+                <h3>upto 50% off</h3>
+            </div>
+        </a>
+
+        <a href="#" class="box">
+            <img src="images/banner-3.jpg" alt="">
+            <div class="content">
+                <span>special offer</span>
+                <h3>upto 50% off</h3>
+            </div>
+        </a>
+        
+    </div>
+
+</section>
+
+<!-- banner section ends -->
+
+<!-- product section starts  -->
+<section class="category">
+
+    <h1 class="heading"> shop by <span>category</span> </h1>
+
+    <div class="box-container">
+        {{#each category}}
+         <div class="box"  style="cursor:pointer ;" onclick="load_cat_data('{{this.name}}')">
+            <img src='/product-images/{{this.imagename}}' alt="">
+            <h3>{{this.name}}</h3>
+        </div>
+
+        {{/each}}
+    </div>
+
+</section>
+
+<section class="products">
+
+    <h1 class="heading"> featured <span>products</span> </h1>
+
+    <div class="box-container" id="boxcat">
+        {{#each bambooproducts}}
+        <div class="box">
+            <div class="image">
+                <img src='/product-images/{{this.imagename}}' class="main-img" alt="">
+                <img src='/product-images/{{this.imagename}}' class="hover-img" alt="">
+                <div class="icons">
+                    <a href="#" class="fas fa-shopping-cart"></a>
+                    <a href="/showproduct/{{this._id}}" class="fas fa-search-plus"></a>
+                    {{!-- <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-share"></a> --}}
+                </div>
+            </div>
+            <div class="content">
+                <h3>{{this.name}}</h3>
+                <div class="price">₹{{this.price}}<span>₹399.99</span></div>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+
+       
+
+    </div>
+
+</section>
+
+
+<!-- product section ends -->
+
+<script>
+        function load_cat_data(cat)
+    {
+        console.log("worked")
+        $.ajax({
+            url:"/catdata/"+ cat,
+            method:"get",
+            success:function(data)
+            {
+                console.log(data)
+                var html = '';
+                 for(var count = 0; count < data.length; count++)
+                 {
+                     html += '<div class="box">';
+                     html += '<div class="image">';
+                     html += '<img src="/product-images/'+ data[count].imagename +'"class="main-img" alt="">'
+                     html += '<img src="/product-images/'+ data[count].imagename +'"class="hover-img" alt="">'
+                     html += '<div class="icons">';
+                     html += '<a href="#" class="fas fa-shopping-cart"></a>';
+                     html += ' <a href="#" class="fas fa-search-plus"></a>';
+                     html += ' </div>';
+                     html += ' </div>';
+                     html += '<div class="content">';
+                     html += '<h3>'+data[count].name+'</h3>';
+                     html += '<div class="price">₹'+data[count].price+'<span>₹399.99</span></div>';
+                     html += '<div class="stars">';
+                     for(var star = 1; star <= 5; star++)
+                        {
+                            var class_name = '';
+
+                            if(data[count].rating >= star)
+                            {
+                                class_name = 'text-warning';
+                            }
+                            else
+                            {
+                                class_name = 'star-light';
+                            }
+
+                            html += '<i class="fas fa-star '+class_name+'"></i>';
+                        }
+                     html += '</div>';
+                     html += '</div>';
+                     html += '</div>';
+                    
+                 }
+                 $('#boxcat').html(html);
+            }
+        })
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
