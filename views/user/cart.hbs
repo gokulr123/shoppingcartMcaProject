@@ -1,95 +1,58 @@
 
- <section class="shopping-cart">
+ <section class="shopping-cart" style="height:90vh">
 
     <h1 class="heading">your <span>products</span></h1>
 
     <div class="box-container">
-
+        {{#each cartproduct}}
         <div class="box">
-            <i class="fas fa-times"></i>
-            <img src="images/product-1.jpg" alt="">
+            <a id="deletecart" href="/deletecartproduct/{{this.product._id}}/{{this._id}}"><i class="fas fa-times"></i></a>
+            <img src="/product-images/{{this.product.imagename}}" alt="">
             <div class="content">
-                <h3>smartphone</h3>
-                <form action="">
+                <h3>{{this.product.name}}</h3>
+                <form class="f" action="">
                     <span>quantity : </span>
-                    <input type="number" name="" value="1" id="">
+                   <span style="cursor: pointer;" onclick="changequantity('{{this._id}}','{{this.product._id}}',-1)" class="minus">-</span>
+                   <input class="quantity" style="width: 9px; font-size:10px;" id="{{this.product._id}}" type="text" value={{this.quantity}}>
+                  <span style="cursor: pointer;" onclick="changequantity('{{this._id}}','{{this.product._id}}',1) "class="plus">+</span>
                 </form>
-                <div class="price">$249.99 <span>$399.99</span></div>
+                <div class="price">₹{{this.product.price}} <span>₹10000</span></div>
             </div>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-times"></i>
-            <img src="images/product-2.jpg" alt="">
-            <div class="content">
-                <h3>camera</h3>
-                <form action="">
-                    <span>quantity : </span>
-                    <input type="number" name="" value="1" id="">
-                </form>
-                <div class="price">$249.99 <span>$399.99</span></div>
-            </div>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-times"></i>
-            <img src="images/product-3.jpg" alt="">
-            <div class="content">
-                <h3>television</h3>
-                <form action="">
-                    <span>quantity : </span>
-                    <input type="number" name="" value="1" id="">
-                </form>
-                <div class="price">$249.99 <span>$399.99</span></div>
-            </div>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-times"></i>
-            <img src="images/product-4.jpg" alt="">
-            <div class="content">
-                <h3>speaker</h3>
-                <form action="">
-                    <span>quantity : </span>
-                    <input type="number" name="" value="1" id="">
-                </form>
-                <div class="price">$249.99 <span>$399.99</span></div>
-            </div>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-times"></i>
-            <img src="images/product-6.jpg" alt="">
-            <div class="content">
-                <h3>smartwatch</h3>
-                <form action="">
-                    <span>quantity : </span>
-                    <input type="number" name="" value="1" id="">
-                </form>
-                <div class="price">$249.99 <span>$399.99</span></div>
-            </div>
-        </div>
-
-        <div class="box">
-            <i class="fas fa-times"></i>
-            <img src="images/product-7.jpg" alt="">
-            <div class="content">
-                <h3>headphone</h3>
-                <form action="">
-                    <span>quantity : </span>
-                    <input type="number" name="" value="1" id="">
-                </form>
-                <div class="price">$249.99 <span>$399.99</span></div>
-            </div>
-        </div>
+        </div> 
+        {{/each}}
 
     </div>
 
     <div class="cart-total">
-        <h3> subtotal : <span>$1499.94</span> </h3>
-        <h3> discount : <span>-$99.94</span> </h3>
-        <h3> subtotal : <span>$1400.00</span> </h3>
-        <a href="#" class="btn">proceed to checkout</a>
+        <h3> subtotal :<span id="total1">₹{{totalvalue}}</span> </h3>
+        <a href="/checkout" class="btn">proceed to checkout</a>
     </div>
 
 </section>
+<script>
+     function changequantity(cartid, proid, count) {
+            count = parseInt(count)
+            let quantity = parseInt(document.getElementById(proid).value)
+
+            $.ajax({
+                url: '/change-product-quantity',
+                data: {
+                    cart: cartid,
+                    product: proid,
+                    count: count,
+                    quantity: quantity
+                },
+                method: 'post',
+                success: (response) => {
+                    if (response.removeproduct) {
+                        location.reload()
+                    } else {
+
+                        document.getElementById(proid).value = quantity + count
+                        document.getElementById('total1').innerHTML = response.total
+
+                    }
+                }
+            })
+        }
+</script>

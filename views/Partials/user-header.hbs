@@ -1,53 +1,39 @@
 <!-- header section starts  -->
-
 <header class="header">
-
-    <a href="home.html" class="logo"> <i class="fas fa-store"></i> shopy </a>
-
+    <a href="home.html" class="logo"> <i class="fas fa-store"></i> Kudumbashree </a>
     <form action="" class="search-form">
         <input type="search" id="search-box" placeholder="search here...">
         <label for="search-box" class="fas fa-search"></label>
     </form>
-
     <div class="icons">
         <div id="menu-btn" class="fas fa-bars"></div>
         <div id="search-btn" class="fas fa-search"></div>
         <a href="/login" class="fas fa-user"></a>
         <a href="#" class="fas fa-heart"></a>
-        <a href="cart.html" class="fas fa-shopping-cart"></a>
+        <a href="/cart" class="fas fa-shopping-cart"><span style="font-size:1rem; position:absolute;"class="badge badge-light"id="cart-count">{{cartcount}}</span></a>
     </div>
-
 </header>
-
 <!-- header section ends -->
-
 <!-- side-bar section starts -->
-
 <div class="side-bar">
 
     <div id="close-side-bar" class="fas fa-times"></div>
 
     <div class="user">
-        <img src="images/user-img.png" alt="">
-        <h3>shaikh anas</h3>
-        <a href="#">log out</a>
+        <img src="images/admin.jpeg" alt="">
+        <h3 >{{userinfo.username}}</h3>
+        <a href="/logout">log out</a>
     </div>
-
-    <nav class="navbar">
-        <a href="home.html"> <i class="fas fa-angle-right"></i> home </a>
-        <a href="about.html"> <i class="fas fa-angle-right"></i> about </a>
-        <a href="products.html"> <i class="fas fa-angle-right"></i> products </a>
-        <a href="contact.html"> <i class="fas fa-angle-right"></i> contact </a>
-        <a href="login.html"> <i class="fas fa-angle-right"></i> login </a>
-        <a href="register.html"> <i class="fas fa-angle-right"></i> register </a>
-        <a href="cart.html"> <i class="fas fa-angle-right"></i> cart </a>
+    <nav class="navbar" style="display:contents ;">
+        <a href="/home"> <i class="fas fa-angle-right"></i> home </a>
+        <a href=""> <i class="fas fa-angle-right"></i> about </a>
+        <a href=""> <i class="fas fa-angle-right"></i> products </a>
+        <a href=""> <i class="fas fa-angle-right"></i> contact </a>
+        <a href=""> <i class="fas fa-angle-right"></i> cart </a>
     </nav>
-
 </div>
-
 <!-- side-bar section ends -->
 {{{body}}}
-
 <!-- footer section starts  -->
 
 <section class="quick-links">

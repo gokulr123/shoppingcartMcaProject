@@ -654,7 +654,20 @@ section {
   color: #fff;
   background: #333;
 }
-
+.products .box-container .box .image .icons button {
+  display: block;
+  margin-top: 1rem;
+  height: 4.5rem;
+  width: 4.5rem;
+  line-height: 4.5rem;
+  font-size: 1.7rem;
+  border-radius: 50%;
+  color: #fff;
+  background: #333;
+}
+.products .box-container .box .image .icons button:hover {
+  background: #0984e3;
+}
 .products .box-container .box .image .icons a:hover {
   background: #0984e3;
 }
@@ -1020,7 +1033,7 @@ section {
 }
 
 .shopping-cart .box-container .box img {
-  height: 12rem;
+  height: 9rem;
 }
 
 .shopping-cart .box-container .box .content h3 {
@@ -1028,25 +1041,20 @@ section {
   color: #333;
 }
 
-.shopping-cart .box-container .box .content form {
+/* .shopping-cart .box-container .box .content form {
   padding: 1rem 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   gap: .5rem;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
+  
+} */
 
 .shopping-cart .box-container .box .content form span {
   font-size: 1.5rem;
   color: #666;
 }
 
-.shopping-cart .box-container .box .content form input {
-  width: 7rem;
-  padding: .5rem 1rem;
+.shopping-cart .box-container .box .content form .quantity {
+  
   color: #666;
   border-radius: .5rem;
   background: #eee;
@@ -1289,4 +1297,4 @@ section {
   margin-left: 0.3em;
   line-height: 1em;
 }
-/*# sourceMappingURL=style.css.map */
+/*# checkout */

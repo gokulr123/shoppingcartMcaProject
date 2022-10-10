@@ -116,7 +116,8 @@
                 <img src='/product-images/{{this.imagename}}' class="main-img" alt="">
                 <img src='/product-images/{{this.imagename}}' class="hover-img" alt="">
                 <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
+                    <button onclick="addtocart('{{this._id}}')" class="fas fa-shopping-cart"></button>
+                    {{!-- <button onclick="showproduct('{{this._id}}')" class="fas fa-search-plus"></button> --}}
                     <a href="/showproduct/{{this._id}}" class="fas fa-search-plus"></a>
                     {{!-- <a href="#" class="fas fa-heart"></a>
                     <a href="#" class="fas fa-share"></a> --}}
@@ -147,9 +148,11 @@
 <!-- product section ends -->
 
 <script>
+    
+
         function load_cat_data(cat)
     {
-        console.log("worked")
+
         $.ajax({
             url:"/catdata/"+ cat,
             method:"get",
@@ -164,8 +167,8 @@
                      html += '<img src="/product-images/'+ data[count].imagename +'"class="main-img" alt="">'
                      html += '<img src="/product-images/'+ data[count].imagename +'"class="hover-img" alt="">'
                      html += '<div class="icons">';
-                     html += '<a href="#" class="fas fa-shopping-cart"></a>';
-                     html += ' <a href="#" class="fas fa-search-plus"></a>';
+                     html += '<button onclick="addtocart(`'+data[count]._id+'`)" class="fas fa-shopping-cart"></button>';
+                     html += ' <a href="/showproduct/'+data[count]._id+'" class="fas fa-search-plus"></a> ';
                      html += ' </div>';
                      html += ' </div>';
                      html += '<div class="content">';
@@ -196,7 +199,29 @@
             }
         })
     }
+     
+
+
 </script>
+<script>
+     function addtocart(proid){
+        $.ajax({
+            url:"/addtocart/"+proid,
+            method:'get',
+            success:(response)=>{
+             if(response.status){
+                       let count=$('#cart-count').html()
+                       count=parseInt(count)+1
+                       $("#cart-count").html(count)
+                    }
+            }
+        })
+      }
+</script>
+
+ 
+
+
 
 
 

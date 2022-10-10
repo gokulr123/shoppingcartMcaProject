@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 const multer = require('multer');
 var db=require('../config/connection');
-const adminhelper = require('../helpers/adminhelper');
+const Helper = require('../helpers/Helper');
 const uuid=require('uuid').v4
 var objectid=require('mongodb').ObjectId
 
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  adminhelper.getall(db.get().collection('category').find()).then((category)=>{
+  Helper.getall(db.get().collection('category').find()).then((category)=>{
     
     res.render('admin/addproducts',{admin:true,category});;
     
@@ -40,7 +40,7 @@ router.post('/addcategories',upload.single('category'), function(req, res) {
 
 }
 
-  adminhelper.addtodatabase(db.get().collection('category').insertOne(categoryobj)).then((data)=>{
+  Helper.addtodatabase(db.get().collection('category').insertOne(categoryobj)).then((data)=>{
     
     res.redirect('admin/addcategories',{admin:true});
    
@@ -63,7 +63,7 @@ router.post('/addproducts',upload.single('image'), function(req, res) {
     imagename:req.file.filename
 }
 
-  adminhelper.addtodatabase(db.get().collection('products').insertOne(productobj)).then((data)=>{
+  Helper.addtodatabase(db.get().collection('products').insertOne(productobj)).then((data)=>{
     res.redirect('/admin');
     
   })
@@ -71,13 +71,13 @@ router.post('/addproducts',upload.single('image'), function(req, res) {
   
 })
 router.get('/viewproducts', function(req, res, next) {
-  adminhelper.getall(db.get().collection('products').find()).then((products)=>{
+  Helper.getall(db.get().collection('products').find()).then((products)=>{
     res.render('admin/viewproducts',{admin:true,products});
   })
    
 });
 router.get('/editproducts', function(req, res, next) {
-  adminhelper.getall(db.get().collection('products').find()).then((products)=>{
+  Helper.getall(db.get().collection('products').find()).then((products)=>{
     res.render('admin/editproducts',{admin:true,products});
   })
    
@@ -85,13 +85,13 @@ router.get('/editproducts', function(req, res, next) {
 
 router.get('/deleteproduct/:id',(req,res)=>{
   let proid=req.params.id
-  adminhelper.deleteone(  db.get().collection('products').remove({_id:objectid(proid)})).then((response)=>{
+  Helper.deleteone(  db.get().collection('products').remove({_id:objectid(proid)})).then((response)=>{
     res.redirect('/admin/viewproducts')
   })
 })
 router.get('/editproduct/:id',async(req,res)=>{
   let proid=req.params.id
-  let product = await adminhelper.getoneitemdetails( db.get().collection('products').findOne({_id:objectid(proid)}))
+  let product = await Helper.getoneitemdetails( db.get().collection('products').findOne({_id:objectid(proid)}))
   res.render('admin/editproductpage',{admin:true,product})
 })
 router.post('/editproducts/:id',upload.single('image'),function(req,res){
@@ -120,7 +120,7 @@ if (req.file) {
   const image = req.file.filename;
   updates.imagename = image;
 }
-adminhelper.updateone(db.get().collection('products')
+Helper.updateone(db.get().collection('products')
 .updateOne({_id:objectid(proid)},{
     $set:updates
 })).then(()=>{

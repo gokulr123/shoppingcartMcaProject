@@ -1,16 +1,37 @@
-<section class="login">
-
-    <form action="">
+<section class="login " style="height:90vh; margin-top:10rem;">
+    <form action="" method="" id="login">
         <h3>login now</h3>
-        <input type="email" name="" placeholder="enter your email" id="" class="box">
-        <input type="password" name="" placeholder="enter your password" id="" class="box">
+        <input type="email" name="email" placeholder="enter your email" id="" class="box">
+        <input type="password" name="password" placeholder="enter your password" id="" class="box">
         <div class="remember">
             <input type="checkbox" name="" id="remember-me">
             <label for="remember-me"> remember me </label>
         </div>
-        <input type="submit" value="login now" class="btn">
+        <input style="font-size:2rem ;" type="submit" value="login now" class="btn">
         <p>don't have an account?</p>
-        <a href="/signup" class="btn link">register now</a>
+        <a href="/signup" class="btn link" style="font-size:2rem ;">register now</a>
     </form>
 
 </section>
+<script>
+    $('#login').submit(function(e) {
+              e.preventDefault()
+            $.ajax({
+                url:"/",
+                method:'post',
+                data:$('#login').serialize(),
+                success:(response)=>{
+                  if(response.success==1){
+                   location.href="/home"
+                  }
+                  if(response.success==0){
+                   alert("Password Is Incorrect")
+                  }
+                  if(response.success==-1){
+                    alert("Email Is Incorrect")
+                  }
+                  
+            }
+            })
+            })
+</script>
