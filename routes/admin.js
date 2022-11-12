@@ -128,7 +128,21 @@ Helper.updateone(db.get().collection('products')
 })
 
 })
-
-
+router.get('/viewusers', function(req, res, next) {
+  Helper.getall(db.get().collection('users').find()).then((users)=>{
+    res.render('admin/viewuser',{admin:true,users});
+  })
+});
+router.get('/vieworders', function(req, res, next) {
+  Helper.getall(db.get().collection('orders').find()).then((orders)=>{
+    res.render('admin/vieworders',{admin:true,orders});
+  })
+});
+router.get('/vieworderproducts/:id',async(req,res)=>{
+  let userverify=req.session.user
+  let orderproducts=await Helper.getuserordersproducts(req.params.id)
+  res.render('admin/vieworderproductpage',{admin:true,orderproducts})
+  
+})
 
 module.exports = router;

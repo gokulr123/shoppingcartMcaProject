@@ -27,7 +27,7 @@ router.get('/home',verifylogin,async function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-  res.render('user/signup',{user:true});
+  res.render('user/signup',{user:true,login:true});
 });
 
 router.post('/signup', function(req, res, next) {
@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
   if(req.session.user){
     res.redirect('/home')
   }else{
-    res.render('user/login',{user:true});
+    res.render('user/login',{user:true,login:true});
   }
  
 });
@@ -80,22 +80,19 @@ router.get('/catdata/:name',(req,res)=>{
    res.json(response)
     
  })
-
 })
 router.get('/showproduct/:id', async function(req, res, next) {
   let proid =req.params.id
   let user=req.session.user
+  let cartcount= await Helper.getcartcount(req.session.user._id)
   let product = await Helper.getoneitemdetails( db.get().collection('products').findOne({_id:objectid(proid)}))
-   
-  res.render('user/showproduct',{user:true,product,user});
+  res.render('user/showproduct',{user:true,product,user,cartcount});
 });
-
 router.get('/addtocart/:id',async(req,res)=>{
     Helper.addtocart(req.params.id,req.session.user._id).then(async(response)=>{
     res.json({status:true})
   })
 })
-
 router.get('/review/:id', async function(req, res, next) {
   let id=req.params.id
   let average_rating = 0;
@@ -132,15 +129,13 @@ router.get('/review/:id', async function(req, res, next) {
        one_star_review++;
      }
  
-     
      total_review++;
- 
-     total_user_rating = total_user_rating +reviews[i].user_rating;
+     total_user_rating = total_user_rating +parseInt(reviews[i].user_rating) ;
   }
  
   average_rating = total_user_rating / total_review;
   let output={
-   'average_rating':average_rating.toFixed(2) ,
+   'average_rating':average_rating.toFixed(1),
    'total_review'	:	total_review,
    'five_star_review' :five_star_review,
    'four_star_review'	:four_star_review,
@@ -195,9 +190,52 @@ router.get('/deletecartproduct/:id/:cart',(req,res)=>{
 
 router.get('/checkout',verifylogin,async(req,res)=>{
   let userverify=req.session.user
+  let cartcount= await Helper.getcartcount(req.session.user._id)
   let cartproduct= await Helper.getcartproduct(req.session.user._id)
  let totalvalue=await Helper.gettotalamount(req.session.user._id)
-  res.render('user/checkout',{user:true,cartproduct,totalvalue})
+  res.render('user/checkout',{user:true,cartproduct,totalvalue,cartcount})
 })
+router.post('/checkout',verifylogin,async(req,res)=>{
+  let product = await Helper.getcartproductlist(req.session.user._id)
+  let totalprice=await Helper.gettotalamount(req.session.user._id)
+  Helper.order(req.body,product,totalprice,req.session.user._id).then((orderid)=>{
+    if(req.body['mode']==='cod'){
+      res.json({codsuccess:true})
+    }else{
+      Helper.generaterazorpay(orderid,totalprice).then((response)=>{
+          res.json(response)
+      })
+    }
+    
+})
+})
+
+router.post('/verify-payment',(req,res)=>{
+  console.log(req.body)
+  Helper.verifypayment(req.body).then(()=>{
+    Helper.changepaymentstatus(req.body['order[receipt]']).then(()=>{
+      res.json({status:true})
+    })
+  }).catch((err)=>{
+    console.log(err)
+    res.json({status:false})
+  })
+})
+
+router.get('/vieworders',verifylogin,async(req,res)=>{
+  let userverify=req.session.user
+  let orders= await Helper.getuserorders(req.session.user._id)
+  res.render('user/vieworders',{user:true,orders,userverify})
+})
+router.get('/vieworderproducts/:id',async(req,res)=>{
+  let userverify=req.session.user
+  let orderproducts=await Helper.getuserordersproducts(req.params.id)
+  console.log(orderproducts)
+  res.render('user/vieworderedproducts',{user:true,orderproducts,userverify})
+  
+})
+
+
+
 
 module.exports = router;

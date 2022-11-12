@@ -1,0 +1,30 @@
+<div class="" style="margin:40px 40px 40px 40px; min-height: 600px;">
+    							<div class="card flex-fill">
+    								<div class="card-header">
+    
+    									<h5 class="card-title mb-0">PRODUCT LIST</h5>
+    								</div>
+    								<table class="table table-hover my-0">
+    									<thead>
+    										<tr>
+    											<th>Name</th>
+    											<th class="d-none d-xl-table-cell">Quantity</th>
+												<th class="d-none d-xl-table-cell">Price</th>
+    											<th class="d-none d-md-table-cell">Image</th>
+    										</tr>
+    									</thead>
+    									<tbody>
+											{{#each orderproducts}}
+    										<tr>
+    											<td>{{this.product.name}}</td>
+    											<td class="d-none d-xl-table-cell">{{this.quantity}}</td>
+                                                <td class="d-none d-xl-table-cell">{{this.product.price}}</td>
+												<td><img style="width:50px;height:50px" src='/product-images/{{this.product.imagename}}'></td>
+    										</tr>
+											{{/each}}
+							
+    										
+    									</tbody>
+    								</table>
+    							</div>
+    						</div>

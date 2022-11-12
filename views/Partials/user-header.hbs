@@ -1,14 +1,18 @@
 <!-- header section starts  -->
 <header class="header">
-    <a href="home.html" class="logo"> <i class="fas fa-store"></i> Kudumbashree </a>
+    <a href="/home" class="logo"> <i class="fas fa-store"></i> Kudumbashree </a>
     <form action="" class="search-form">
         <input type="search" id="search-box" placeholder="search here...">
         <label for="search-box" class="fas fa-search"></label>
     </form>
     <div class="icons">
+        {{#if login}}
+
+        {{else}}
         <div id="menu-btn" class="fas fa-bars"></div>
+        {{/if}}
         <div id="search-btn" class="fas fa-search"></div>
-        <a href="/login" class="fas fa-user"></a>
+        <a href="" class="fas fa-user"></a>
         <a href="#" class="fas fa-heart"></a>
         <a href="/cart" class="fas fa-shopping-cart"><span style="font-size:1rem; position:absolute;"class="badge badge-light"id="cart-count">{{cartcount}}</span></a>
     </div>
@@ -26,10 +30,9 @@
     </div>
     <nav class="navbar" style="display:contents ;">
         <a href="/home"> <i class="fas fa-angle-right"></i> home </a>
-        <a href=""> <i class="fas fa-angle-right"></i> about </a>
-        <a href=""> <i class="fas fa-angle-right"></i> products </a>
-        <a href=""> <i class="fas fa-angle-right"></i> contact </a>
-        <a href=""> <i class="fas fa-angle-right"></i> cart </a>
+        <a href="/home"> <i class="fas fa-angle-right"></i> products </a>
+        <a href="/vieworders"> <i class="fas fa-angle-right"></i> Orders</a>
+        <a href="/cart"> <i class="fas fa-angle-right"></i> cart </a>
     </nav>
 </div>
 <!-- side-bar section ends -->
@@ -38,23 +41,20 @@
 
 <section class="quick-links">
 
-    <a href="home.html" class="logo"> <i class="fas fa-store"></i> shopie </a>
+    <a href="/home" class="logo"> <i class="fas fa-store"></i>Kudumbashree </a>
 
     <div class="links">
-        <a href="home.html"> home </a>
-        <a href="about.html"> about </a>
-        <a href="products.html"> products </a>
-        <a href="contact.html"> contact </a>
-        <a href="login.html"> login </a>
-        <a href="register.html"> register </a>
-        <a href="cart.html"> cart </a>
+        <a href="/home"> home </a>
+        <a href="/vieworders"> Orders </a>
+        <a href="/home"> products </a>
+        <a href="/cart"> cart </a>
     </div>
 
     <div class="share">
         <a href="#" class="fab fa-facebook-f"></a>
         <a href="#" class="fab fa-twitter"></a>
-        <a href="#" class="fab fa-instagram"></a>
-        <a href="#" class="fab fa-linkedin"></a>
+        {{!-- <a href="#" class="fab fa-instagram"></a>
+        <a href="#" class="fab fa-linkedin"></a> --}}
     </div>
 
 </section>

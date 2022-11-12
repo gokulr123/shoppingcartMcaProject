@@ -1,0 +1,24 @@
+ <section class="shopping-cart" style="height:90vh">
+
+    <h1 class="heading">your <span>products</span></h1>
+
+    <div class="box-container">
+        {{#each orderproduct}}
+        <div class="box">
+            <img src="/product-images/{{this.product.imagename}}" alt="">
+            <div class="content">
+                <h3>{{this.product.name}}</h3>
+                <form class="f" action="">
+                    <span>quantity : </span>
+                   <span style="cursor: pointer;" onclick="changequantity('{{this._id}}','{{this.product._id}}',-1)" class="minus">-</span>
+                   <input class="quantity" style="width: 9px; font-size:10px;" id="{{this.product._id}}" type="text" value={{this.quantity}}>
+                  <span style="cursor: pointer;" onclick="changequantity('{{this._id}}','{{this.product._id}}',1) "class="plus">+</span>
+                </form>
+                <div class="price">₹{{this.product.price}} <span>₹10000</span></div>
+            </div>
+        </div> 
+        {{/each}}
+
+    </div>
+
+</section>

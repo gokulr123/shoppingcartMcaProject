@@ -156,7 +156,6 @@ ul li:hover {
 .total {
   margin-top:25px;
   font-size:20px;
-  position:absolute;
   bottom:5px;
   right:27px;
   left:35px;
@@ -275,7 +274,7 @@ ul li:hover {
 </style>
 <div class='container'>
   <div class='window'>
-    <div class='order-info'>
+    <div class='order-info' style="overflow-y:scroll ; height:500px">
       <div class='order-info-content'>
         <h2 style="font-size:2rem ;">Order Summary</h2>
         <div class='line'></div>
@@ -304,13 +303,10 @@ ul li:hover {
        
         <div class='total'>
           <span style='float:left;'>
-            <div class='thin dense'>VAT 19%</div>
-            <div class='thin dense'>Delivery</div>
+            
             TOTAL
           </span>
           <span style='float:right; text-align:right;'>
-            <div class='thin dense'>$68.75</div>
-            <div class='thin dense'>$4.95</div>
             {{totalvalue}}
           </span>
         </div>
@@ -318,6 +314,7 @@ ul li:hover {
 </div>
         <div class='credit-info'>
           <div class='credit-info-content'>
+            <form action="" id="paid">
             <table class='half-input-table'>
               <tr><td>select payment mode : </td><td><div class='dropdown' id='card-dropdown'><div class='dropdown-btn' id='current-card'>online</div>
                 <div class='dropdown-select'>
@@ -329,18 +326,18 @@ ul li:hover {
             </table>
             <img src='images/online.png' height='80' class='credit-card-image' id='credit-card-image'></img>
             Address
-            <input class='input-field'></input>
+            <input name="address" id="address" class='input-field' required></input>
             Mobile Number
-            <input class='input-field'></input>
+            <input name="mobileno" class='input-field' id="mobile" type="tel" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="10" required></input>
             <table class='half-input-table'>
               <tr>
                 <td> Pincode
-                  <input class='input-field'></input>
+                  <input name="pincode" id="pincode" class='input-field' required></input>
                 </td>
               </tr>
             </table>
-            <button class='pay-btn'>Checkout</button>
-
+            <button id="paidbtn" type="submit" class='pay-btn'>Checkout</button>
+            </form>
           </div>
 
         </div>
@@ -394,3 +391,93 @@ window.onclick = function(e) {
 }
 
 </script>
+<script>
+  
+          $('#paidbtn').click(function(e) {
+              e.preventDefault()
+              let mobile = document.getElementById("mobile").value
+              let address = document.getElementById("address").value
+              let pincode = document.getElementById("pincode").value
+              if(address.length==0 || pincode.length==0){
+                alert("Input Box Is Empty")
+              }
+              else if(mobile.length!=10){
+                alert("Mobile Number Is Notcorrect")
+              }
+              else{
+                   let payload=$('#paid').serialize()
+              console.log(payload)
+              let mode = document.getElementById("current-card").innerHTML
+              payload+=`&mode=${mode}`
+               $.ajax({
+                url:"/checkout",
+                method:'post',
+                data:payload,
+                success:(response)=>{
+                  console.log(response)
+                if(response.codsuccess){
+                  swal("Order Placed Succesfully", "", "success", {
+                            button: {text:'vieworders',className:'sweet-warning'},
+                            }).then(()=>{
+                                location.href='/vieworders'
+                            })
+                } 
+                else{
+                  razropayment(response)
+                }     
+            }
+            })
+              }
+              
+           
+            })
+
+              function razropayment(order){
+        var options = {
+    "key": "rzp_test_medNgSuUAPYuLf", // Enter the Key ID generated from the Dashboard
+    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "Brand X",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id": order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+       
+        verifypayment(response,order)
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#83b735"
+    }
+};
+     var rzp1 = new Razorpay(options);
+     rzp1.open();
+    }
+    function verifypayment(payment,order){
+        $.ajax({
+            url:'/verify-payment',
+            data:{
+                payment,
+                order
+            },
+            method:'post',
+            success:(response)=>{
+                if(response.status){
+                    location.href='/vieworders'
+                }else{
+                    alert("payment failed")
+                }
+            }
+        })
+    }
+
+           
+        
+            </script>

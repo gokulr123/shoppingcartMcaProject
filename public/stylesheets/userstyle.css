@@ -144,7 +144,7 @@ section {
 }
 
 .header .search-form label:hover {
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .header .icons a,
@@ -219,7 +219,7 @@ section {
 
 .side-bar .user a {
   font-size: 1.5rem;
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .side-bar .user a:hover {
@@ -238,7 +238,7 @@ section {
 }
 
 .side-bar .navbar a:hover {
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .side-bar .navbar a:hover i {
@@ -286,7 +286,7 @@ section {
 
 .home .slide .content span {
   font-size: 2rem;
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .home .slide .content h3 {
@@ -341,7 +341,7 @@ section {
 
 .banner .box-container .box .content span {
   font-size: 1.7rem;
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .banner .box-container .box .content h3 {
@@ -400,7 +400,7 @@ section {
 .arrivals .box-container .box .content .price {
   padding-top: .5erm;
   font-size: 2rem;
-  color: #0984e3;
+  color: var(--colore);
   padding-bottom: .7rem;
 }
 
@@ -474,7 +474,7 @@ section {
 }
 
 .faq .accordion-container .accordion.active .accordion-heading {
-  background: #0984e3;
+  background: var(--colore);
 }
 
 .faq .accordion-container .accordion.active .accordion-heading i {
@@ -546,7 +546,7 @@ section {
 }
 
 .review .slide span {
-  color: #0984e3;
+  color: var(--colore);
   font-size: 1.7rem;
 }
 
@@ -666,10 +666,10 @@ section {
   background: #333;
 }
 .products .box-container .box .image .icons button:hover {
-  background: #0984e3;
+  background: var(--colore);
 }
 .products .box-container .box .image .icons a:hover {
-  background: #0984e3;
+  background: var(--colore);
 }
 
 .products .box-container .box .content {
@@ -683,7 +683,7 @@ section {
 
 .products .box-container .box .content .price {
   font-size: 2.2rem;
-  color: #0984e3;
+  color: var(--colore);
   padding-bottom: .7rem;
   padding-top: .5rem;
 }
@@ -743,7 +743,7 @@ section {
 
 .product-banner .box-container .box .content span {
   font-size: 1.7rem;
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .product-banner .box-container .box .content h3 {
@@ -777,7 +777,7 @@ section {
   font-size: 2.5rem;
   border-radius: 50%;
   margin-bottom: .5rem;
-  background: #0984e3;
+  background: var(--colore);
   color: #fff;
 }
 
@@ -864,7 +864,7 @@ section {
 }
 
 .newsletter {
-  background: #0984e3;
+  background: var(--colore);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -982,7 +982,7 @@ section {
 
 .register form .btn.link:hover,
 .login form .btn.link:hover {
-  background: #0984e3;
+  background: var(--colore);
 }
 
 .register form p,
@@ -1063,7 +1063,7 @@ section {
 
 .shopping-cart .box-container .box .content .price {
   font-size: 2rem;
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .shopping-cart .box-container .box .content .price span {
@@ -1090,7 +1090,7 @@ section {
 }
 
 .shopping-cart .cart-total h3 span {
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .quick-links {
@@ -1157,7 +1157,7 @@ section {
 }
 
 .credit p span {
-  color: #0984e3;
+  color: var(--colore);
 }
 
 .credit img {
