@@ -1,9 +1,9 @@
 <!-- header section starts  -->
 <header class="header">
     <a href="/home" class="logo"> <i class="fas fa-store"></i> Kudumbashree </a>
-    <form action="" class="search-form">
-        <input type="search" id="search-box" placeholder="search here...">
-        <label for="search-box" class="fas fa-search"></label>
+    <form action="/search" method="post" class="search-form">
+        <input type="search" name="search" id="search-box" placeholder="search here...">
+        <button type="submit"><label for="search-box"  class="fas fa-search"></label></button>
     </form>
     <div class="icons">
         {{#if login}}

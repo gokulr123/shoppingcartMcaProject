@@ -5,13 +5,13 @@
                 <h2 class="text-center">Add Category</h2>
                 <form action="/admin/addcategories" method="POST" enctype="multipart/form-data">
                 <label for="">Name</label>
-                <input type="text" name="name" class="form-control">
+                <input type="text" name="name" class="form-control" required>
                  {{!-- <label for="">Discount</label>
                 <input type="text" name="discount" class="form-control">
                  <label for="">description</label>
                 <input type="text" name="description" class="form-control"> --}}
                 <label for="">Image</label>
-                <input type="file" name="category"class="form-control">
+                <input type="file" name="category"class="form-control" required>
                 <button type="submit" class="btn button mt-4">submit</button>
                 </form>
             </div>

@@ -234,6 +234,10 @@ router.get('/vieworderproducts/:id',async(req,res)=>{
   res.render('user/vieworderedproducts',{user:true,orderproducts,userverify})
   
 })
+router.post("/search",verifylogin,async(req,res)=>{
+  let products=await Helper.getsearchelement(req.body)
+  res.render('user/searchproducts',{user:true,products});
+})
 
 
 

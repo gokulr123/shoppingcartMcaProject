@@ -426,4 +426,14 @@ changepaymentstatus:(orderid)=>{
         })
     })
 },
+getsearchelement:(prodname)=>{
+    return new Promise(async(resolve,reject)=>{
+        let productname=prodname.search
+           productname=productname.toLowerCase()
+        let searchproducts= await db.get().collection('products').find({name:productname}).toArray()
+        resolve(searchproducts)
+          
+
+    })
+}
 }

@@ -1,0 +1,38 @@
+<section class="products" style="height: 100%;">
+
+    <h1 class="heading"> searched <span>products</span> </h1>
+
+    <div class="box-container" id="boxcat">
+        {{#each products}}
+        <div class="box">
+            <div class="image">
+                <img src='/product-images/{{this.imagename}}' class="main-img" alt="">
+                <img src='/product-images/{{this.imagename}}' class="hover-img" alt="">
+                <div class="icons">
+                    <button onclick="addtocart('{{this._id}}')" class="fas fa-shopping-cart"></button>
+                    {{!-- <button onclick="showproduct('{{this._id}}')" class="fas fa-search-plus"></button> --}}
+                    <a href="/showproduct/{{this._id}}" class="fas fa-search-plus"></a>
+                    {{!-- <a href="#" class="fas fa-heart"></a>
+                    <a href="#" class="fas fa-share"></a> --}}
+                </div>
+            </div>
+            <div class="content">
+                <h3>{{this.name}}</h3>
+                <div class="price">₹{{this.price}}<span>₹399.99</span></div>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+
+       
+
+    </div>
+
+</section>

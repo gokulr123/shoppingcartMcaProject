@@ -52,7 +52,7 @@ router.post('/addcategories',upload.single('category'), function(req, res) {
 
 router.post('/addproducts',upload.single('image'), function(req, res) {
   let productobj={
-    name:req.body.name,
+    name:req.body.name.toLowerCase(),
     category:req.body.category,
     price:req.body.price,
     description:req.body.description,
