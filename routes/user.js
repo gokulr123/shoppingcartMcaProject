@@ -231,8 +231,7 @@ router.get('/vieworderproducts/:id',async(req,res)=>{
   let userverify=req.session.user
   let orderproducts=await Helper.getuserordersproducts(req.params.id)
   console.log(orderproducts)
-  res.render('user/vieworderedproducts',{user:true,orderproducts,userverify})
-  
+  res.render('user/vieworderedproducts',{user:true,orderproducts,userverify}) 
 })
 router.post("/search",verifylogin,async(req,res)=>{
   let products=await Helper.getsearchelement(req.body)

@@ -42,9 +42,8 @@ router.post('/addcategories',upload.single('category'), function(req, res) {
 
   Helper.addtodatabase(db.get().collection('category').insertOne(categoryobj)).then((data)=>{
     
-    res.redirect('admin/addcategories',{admin:true});
-   
-   
+    res.redirect('/admin/addcategories');
+     
   })
   
   
@@ -95,7 +94,6 @@ router.get('/editproduct/:id',async(req,res)=>{
   res.render('admin/editproductpage',{admin:true,product})
 })
 router.post('/editproducts/:id',upload.single('image'),function(req,res){
-  console.log(req.body)
   let proid=req.params.id
   const name = req.body.name;
   const category = req.body.category;
@@ -104,8 +102,6 @@ router.post('/editproducts/:id',upload.single('image'),function(req,res){
   const expdate=req.body.expdate;
   const quantity=req.body.quantity;
   const totalnumber=req.body.totalnumber;
-
-
   const updates = {
     name,
     category,

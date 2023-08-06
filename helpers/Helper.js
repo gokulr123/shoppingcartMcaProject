@@ -387,13 +387,8 @@ getuserordersproducts:(orderid)=>{
          }
             
         ]).toArray()
-    console.log("reached2")
-    console.log(orderitems)
     resolve(orderitems)
-   
     })
-
-
 },
 verifypayment:(details)=>{
     return new Promise ((resolve,reject)=>{
